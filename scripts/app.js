@@ -29,7 +29,7 @@ let jump = false;
 let down = false;
 let jumpC = false;
 
-let jumpValue = 0.4;
+let jumpValue = 0.3;
 export let speed = 2;
 
 let Score = 0;
@@ -49,7 +49,7 @@ restartBtn.addEventListener("click", () => {
   restartGame();
 });
 
-let DefaultnumY = 7;
+let DefaultnumY = 8;
 bestScoreText.innerHTML = localStorage.getItem("bestScore") ?? 0;
 
 function startGame() {
@@ -167,10 +167,10 @@ function RunBlocks() {
         BlockRunner.createData.classes = `bg-red-500 bottom-0`;
         BlockRunner.create();
 
-        num = Math.random() * 5000;
+        num = Math.random() * 5000 + 2000;
         loop();
       }
-    }, (num + 2000));
+    }, num );
   }
 }
 
