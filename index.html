@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Game</title>
+    <script src="tw.js"></script>
+</head>
+<body class="bg-gray-800">
+    <div class="frame w-full h-[100vh] p-2">
+        <div id="backdrop" class="absolute w-full text-white h-full bg-black bg-opacity-60 top-0 left-0 z-40 p-10 text-center">
+            <h2 class="w-fit mx-auto font-semibold text-2xl font-mono">اکبری پرشی</h2>
+            
+            <p class="text-center">بهترین امتیاز: <span id="bestScoreTitle">0</span></p>
+            <button id="startBtn" class="text-gray-800 hover:bg-stone-200 my-10 startBtn bg-slate-300 rounded-md p-2 m-2">شروع</button>
+        </div>
+        <div id="dead" class="hidden absolute w-full text-white h-full bg-black bg-opacity-60 top-0 left-0 z-40 p-10 text-center">
+            <h2 class=" w-fit mx-auto font-semibold text-2xl font-mono">!اکبری کوشته شد</h2>
+            
+            <p class="text-center"> امتیاز: <span id="ScoreTitle">0</span></p>
+            <p class="text-center">بهترین امتیاز: <span id="bestScoreTitle">0</span></p>
+            <button id="restartBtn" class="text-gray-800 hover:bg-stone-200 my-10 startBtn bg-slate-300 rounded-md p-2 m-2">شروع مجدد</button>
+        </div>
+        <div class="moveFrame overflow-hidden relative border-2 h-[100vh]  shadow-md w-full lg:h-56 from-sky-400 bg-gradient-to-t to bg-sky-200">
+            <div class="w-full flex absolute bottom-4 text-white justify-between p-4 items-center">
+                <button id="downBtn" class="bg-black z-30 bg-opacity-35 rounded-md p-2">Down</button>
+                <button id="jumpBtn" class="bg-black z-30 bg-opacity-35 rounded-md p-2">Jump</button>
+            </div>
+            <div  id="blockFrame" class="w-full h-full absolute top-0 right-0">
+                
+
+            </div>
+            <div class="flex p-2 justify-between items-center bg-white bg-opacity-35 ">
+                <span class=" font-medium text-gray-700 z-10 relative">Coins: <span id="coins">0</span> </span>
+                <span class="font-medium text-gray-700 z-10 relative">Score: <span id="score">0</span> </span>
+                <span class="font-medium text-gray-700 z-10 relative">Best Score: <span id="Bscore">0</span> </span>
+            </div>
+            <div hidden id="object" class="z-0 w-10 h-10 bg-[url('char.jpg')] rounded-full animate-spin absolute  "></div>
+        </div>
+        
+    </div>
+
+    <script type="module" src="scripts/app.js"></script>
+</body>
+</html>
