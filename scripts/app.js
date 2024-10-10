@@ -49,7 +49,7 @@ restartBtn.addEventListener("click", () => {
   restartGame();
 });
 
-let DefaultnumY = 6;
+let DefaultnumY = 5;
 bestScoreText.innerHTML = localStorage.getItem("bestScore") ?? 0;
 
 function startGame() {
