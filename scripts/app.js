@@ -170,10 +170,10 @@ function RunBlocks() {
         BlockRunner.createData.classes = `bg-red-500 bottom-0`;
         BlockRunner.create();
 
-        num = Math.random() * 5000;
+        num = Math.random() * 6000;
         loop();
       }
-    }, (num - speed * 500 )+ 1000);
+    }, num + 1000);
   }
 }
 
@@ -220,10 +220,10 @@ function RunCoins() {
           coinsText.innerHTML = Coin;
         };
 
-        num = Math.random() * 5000;
+        num = Math.random() * 7000;
         loop();
       }
-    }, num + 1000);
+    }, num + 2000);
   }
 }
 
