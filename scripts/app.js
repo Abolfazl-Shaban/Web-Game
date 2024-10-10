@@ -22,8 +22,6 @@ document.querySelectorAll("#bestScoreTitle")[0].innerHTML =
 document.querySelectorAll("#bestScoreTitle")[1].innerHTML =
   localStorage.getItem("bestScore") ?? 0;
 
-let blocks = [];
-let clouds = [];
 
 export let gameStarted = false;
 
@@ -31,7 +29,7 @@ let jump = false;
 let down = false;
 let jumpC = false;
 
-let jumpValue = 0.1;
+let jumpValue = 0.2;
 export let speed = 2;
 
 let Score = 0;
@@ -51,7 +49,7 @@ restartBtn.addEventListener("click", () => {
   restartGame();
 });
 
-let DefaultnumY = 4;
+let DefaultnumY = 8;
 bestScoreText.innerHTML = localStorage.getItem("bestScore") ?? 0;
 
 function startGame() {
@@ -95,14 +93,13 @@ function startGame() {
       }
     }
 
-    character.style.left = `80px`;
+    character.style.left = `100px`;
     character.style.bottom = `${numY}px`;
-  }, 10);
+  }, 20);
 }
 
 function restartGame() {
   Score = 0;
-  blocks = [];
   blockFrame.innerHTML = "";
   speed = 2;
   dead.classList.add("hidden");
@@ -170,10 +167,10 @@ function RunBlocks() {
         BlockRunner.createData.classes = `bg-red-500 bottom-0`;
         BlockRunner.create();
 
-        num = Math.random() * 6000;
+        num = Math.random() * 5000;
         loop();
       }
-    }, num + 1000);
+    }, num + 2000);
   }
 }
 
@@ -194,7 +191,7 @@ function RunClouds() {
         num = Math.random() * 4000;
         loop();
       }
-    }, num + 500);
+    }, num + 1000);
   }
 }
 

@@ -23,7 +23,7 @@ export class RunnerObject {
           if (item.getAttribute("data") != this.name) continue;
     
           const rightCalc = parseInt(item.style.right) + mainSpeed;
-          item.style.right = (rightCalc + this.speed) + "px";
+          item.style.right = (rightCalc + this.speed +2) + "px";
     
           const charLeft = character.offsetLeft;
           const charW = character.offsetWidth;
@@ -37,6 +37,7 @@ export class RunnerObject {
 
           if (item?.offsetLeft < 0) {
             item.remove();
+            continue;
           }
     
           if (
