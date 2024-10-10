@@ -49,7 +49,7 @@ export class RunnerObject {
             }
           }
         }
-      }, 30 );
+      }, 40);
 
       
   }

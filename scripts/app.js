@@ -29,7 +29,7 @@ let jump = false;
 let down = false;
 let jumpC = false;
 
-let jumpValue = 0.2;
+let jumpValue = 0.4;
 export let speed = 2;
 
 let Score = 0;
@@ -38,9 +38,9 @@ let BestScore = localStorage.getItem("bestScore") ?? 0;
 coinsText.innerHTML = localStorage.getItem("coins") ?? 0;
 Coin = parseInt(localStorage.getItem("coins") ?? 0);
 
-const BlockRunner = new RunnerObject("block", 3);
+const BlockRunner = new RunnerObject("block", 4);
 const CloudRunner = new RunnerObject("cloud", 1);
-const CoinRunner = new RunnerObject("coin", 3);
+const CoinRunner = new RunnerObject("coin", 4);
 
 startBtn.addEventListener("click", () => {
   startGame();
@@ -49,7 +49,7 @@ restartBtn.addEventListener("click", () => {
   restartGame();
 });
 
-let DefaultnumY = 5;
+let DefaultnumY = 7;
 bestScoreText.innerHTML = localStorage.getItem("bestScore") ?? 0;
 
 function startGame() {
@@ -157,7 +157,7 @@ function RunBlocks() {
     StopHandler();
   };
 
-  let num = 0;
+  let num = 500;
   loop();
 
   function loop() {
@@ -167,10 +167,10 @@ function RunBlocks() {
         BlockRunner.createData.classes = `bg-red-500 bottom-0`;
         BlockRunner.create();
 
-        num = Math.random() * 7000;
+        num = Math.random() * 5000;
         loop();
       }
-    }, num + 1000);
+    }, (num + 2000));
   }
 }
 
