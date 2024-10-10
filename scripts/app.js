@@ -97,7 +97,7 @@ function startGame() {
 
     character.style.left = `80px`;
     character.style.bottom = `${numY}px`;
-  }, 13);
+  }, 10);
 }
 
 function restartGame() {
