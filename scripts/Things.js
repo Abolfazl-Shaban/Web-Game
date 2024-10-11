@@ -16,8 +16,10 @@ export class RunnerObject {
   run(){
     this.stopRunV = false
     let timer = setInterval(() => { 
-        if(this.stopRunV) clearInterval(timer)
-        if(!gameStarted) clearInterval(timer)
+        if(this.stopRunV || !gameStarted){
+          clearInterval(timer)
+          return
+        }
         for (let i = 0; i < blockFrame.children.length; i++) {
           let item = blockFrame.children[i];
           if (item.getAttribute("data") != this.name) continue;
@@ -49,7 +51,7 @@ export class RunnerObject {
             }
           }
         }
-      }, 40);
+      }, 30);
 
       
   }
@@ -77,4 +79,11 @@ export class RunnerObject {
     
     
   }
+}
+
+
+export class card{
+  name=""
+  purchased= false
+  
 }

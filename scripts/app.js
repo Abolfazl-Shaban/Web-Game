@@ -17,6 +17,15 @@ const coinsText = document.querySelector("#coins");
 const ScoreTitle = document.querySelector("#ScoreTitle");
 const bestScoreText = document.querySelector("#Bscore");
 
+let cardList = document.getElementById('cardList')
+const cards=[
+  {id:0,src:"",name: "akbari",price:100, speed: 2,jump:6},
+  {id:1,src:"",name: "salemi",price:500, speed: 3,jump:20},
+  ]
+  
+  
+const purchasedCards= []
+
 document.querySelectorAll("#bestScoreTitle")[0].innerHTML =
   localStorage.getItem("bestScore") ?? 0;
 document.querySelectorAll("#bestScoreTitle")[1].innerHTML =
@@ -29,7 +38,7 @@ let jump = false;
 let down = false;
 let jumpC = false;
 
-let jumpValue = 0.3;
+let jumpValue = 0.2;
 export let speed = 2;
 
 let Score = 0;
@@ -38,9 +47,9 @@ let BestScore = localStorage.getItem("bestScore") ?? 0;
 coinsText.innerHTML = localStorage.getItem("coins") ?? 0;
 Coin = parseInt(localStorage.getItem("coins") ?? 0);
 
-const BlockRunner = new RunnerObject("block", 4);
+const BlockRunner = new RunnerObject("block", 3);
 const CloudRunner = new RunnerObject("cloud", 1);
-const CoinRunner = new RunnerObject("coin", 4);
+const CoinRunner = new RunnerObject("coin", 3);
 
 startBtn.addEventListener("click", () => {
   startGame();
@@ -49,7 +58,7 @@ restartBtn.addEventListener("click", () => {
   restartGame();
 });
 
-let DefaultnumY = 8;
+let DefaultnumY = 6;
 bestScoreText.innerHTML = localStorage.getItem("bestScore") ?? 0;
 
 function startGame() {
@@ -95,7 +104,7 @@ function startGame() {
 
     character.style.left = `100px`;
     character.style.bottom = `${numY}px`;
-  }, 20);
+  }, 15);
 }
 
 function restartGame() {
@@ -108,12 +117,15 @@ function restartGame() {
 
   gameStarted = true;
   character.style.bottom = 0;
-  StartHandler();
+  
+  BlockRunner.run()
+  CloudRunner.run()
+  CoinRunner.run()
 }
 
 function scoreHandler() {
   setInterval(() => {
-    if (!gameStarted) return;
+    if (gameStarted) {
     Score += speed;
     ScoreTitle.innerHTML = Math.round(Score);
     scoreText.innerHTML = Math.round(Score);
@@ -124,7 +136,7 @@ function scoreHandler() {
     if (Score > BestScore) {
       BestScore = Math.round(Score);
       bestScoreText.innerHTML = Math.round(Score);
-    }
+    }}
   }, 100);
 
   setInterval(() => {
@@ -138,6 +150,10 @@ function StartHandler() {
   RunClouds();
   RunCoins();
   scoreHandler();
+  
+   BlockRunner.run()
+  CloudRunner.run()
+  CoinRunner.run()
 }
 function StopHandler() {
   gameStarted = false;
@@ -151,59 +167,58 @@ function StopHandler() {
 }
 
 function RunBlocks() {
-  BlockRunner.run();
 
   BlockRunner.action = () => {
     StopHandler();
   };
 
   let num = 500;
+  
   loop();
 
   function loop() {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       if (gameStarted) {
         BlockRunner.createData.height = Math.random() * 50 + 10;
-        BlockRunner.createData.classes = `bg-red-500 bottom-0`;
+        BlockRunner.createData.classes = `bg-red-500 bottom-0`
+        BlockRunner.createData.width = "30"
         BlockRunner.create();
 
-        num = Math.random() * 5000 + 2000;
-        loop();
+        num = Math.random() * 2000 + 1000;
       }
-    }, num );
+        loop();
+    }, num - speed * 100);
   }
 }
 
 function RunClouds() {
-  CloudRunner.run();
   let num = 0;
   loop();
 
   function loop() {
     setTimeout(() => {
       if (gameStarted) {
-        CloudRunner.createData.src = "cloud.png";
+        CloudRunner.createData.src = "assets/cloud.png";
         CloudRunner.createData.classes = `top-[${
           Math.random() * 50 + 10
         }px] scale-[${Math.random() * 2 + 1}] opacity-[${Math.random()}]`;
         CloudRunner.create();
 
-        num = Math.random() * 4000;
-        loop();
+        num = Math.random() * 1000;
       }
-    }, num + 1000);
+        loop();
+    }, num);
   }
 }
 
 function RunCoins() {
-  CoinRunner.run();
   let num = 0;
   loop();
 
   function loop() {
     setTimeout(() => {
       if (gameStarted) {
-        CoinRunner.createData.src = "coin.png";
+        CoinRunner.createData.src = "assets/coin.png";
         CoinRunner.createData.classes = `scale-[2] transition-all`;
         CoinRunner.createData.style = `bottom: ${
           Math.random() > 0.3 ? "5" : "50"
@@ -218,9 +233,9 @@ function RunCoins() {
         };
 
         num = Math.random() * 7000;
-        loop();
       }
-    }, num + 2000);
+        loop();
+    }, num);
   }
 }
 
@@ -248,3 +263,10 @@ downBtn.addEventListener("click", () => {
     down = true;
   
 });
+cardHandler()
+function cardHandler(){
+  cards.map(e => {
+    cardList.innerHTML += `<div> <h3>${e.name}</h3> ${e.price}</div>`
+  })
+  
+}

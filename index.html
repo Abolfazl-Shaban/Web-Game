@@ -3,14 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="mobile-web-app-capable" content="yes">
     <title>My Game</title>
     <script src="tw.js"></script>
+    <style>
+  
+    </style>
 </head>
 <body class="bg-gray-800">
     <div class="frame w-full h-[100vh] p-2">
         <div id="backdrop" class="absolute w-full text-white h-[100vh] bg-black bg-opacity-60 top-0 bottom-0 left-0 z-40 p-10 text-center">
             <h2 class="w-fit mx-auto font-semibold text-2xl font-mono">اکبری پرشی</h2>
+            
+            <div id="cardList" class="hidden *:bg-white *:rounded-lg *:p-2 *:bg-opacity-50 flex text-gray-700">
+            
+            </div>
             
             <p class="text-center">بهترین امتیاز: <span id="bestScoreTitle">0</span></p>
             <button id="startBtn" class="text-gray-800 hover:bg-stone-200 my-10 startBtn bg-slate-300 rounded-md p-2 m-2">شروع</button>
@@ -23,20 +31,20 @@
             <button id="restartBtn" class="text-gray-800 hover:bg-stone-200 my-10 startBtn bg-slate-300 rounded-md p-2 m-2">شروع مجدد</button>
         </div>
         <div class="moveFrame overflow-hidden relative border-2 h-[100%]  shadow-md w-full lg:h-56 from-sky-400 bg-gradient-to-t to bg-sky-200">
-            <div class="w-full flex absolute bottom-4 text-white justify-between p-4 items-center">
-                <button id="downBtn" class="absolute lg:hidden left-4 bottom-6 bg-black z-30 bg-opacity-35 rounded-md text-lg p-4">Down</button>
-                <button id="jumpBtn" class="absolute lg:hidden right-4 bottom-6 bg-black z-30 bg-opacity-35 rounded-md text-lg p-4">Jump</button>
+          
+          <div class="w-full lg:hidden flex absolute bottom-0 text-gray-400 font-bold h-full z-30 justify-between items-center">
+                <button id="downBtn" class=" opacity-20 w-1/2 rounded-md text-lg h-full">Down</button>
+                <button id="jumpBtn" class="opacity-20 w-1/2 rounded-md text-lg h-full">Jump</button>
             </div>
-            <div  id="blockFrame" class="w-full h-full absolute top-0 right-0">
-                
-
-            </div>
+          
+            <div  id="blockFrame" class="w-full h-full absolute top-0 right-0"></div>
+            
             <div class="flex p-2 justify-between items-center bg-white bg-opacity-35 ">
                 <span class=" font-medium text-gray-700 z-10 relative">Coins: <span id="coins">0</span> </span>
                 <span class="font-medium text-gray-700 z-10 relative">Score: <span id="score">0</span> </span>
                 <span class="font-medium text-gray-700 z-10 relative">Best Score: <span id="Bscore">0</span> </span>
             </div>
-            <div hidden id="object" class="z-0 w-10 h-10 bg-[url('char.jpg')] rounded-full animate-spin absolute  "></div>
+            <div hidden id="object" class="z-0 w-10 h-10 bg-[url('assets/char.jpg')] rounded-full animate-spin absolute bg-black "></div>
         </div>
         
     </div>
