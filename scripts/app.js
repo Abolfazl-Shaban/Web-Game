@@ -3,7 +3,6 @@ import { RunnerObject } from "./Things.js";
 const jumpBtn = document.getElementById("jumpBtn");
 const downBtn = document.getElementById("downBtn");
 
-
 const backdrop = document.querySelector("#backdrop");
 const dead = document.querySelector("#dead");
 const character = document.querySelector("#object");
@@ -17,20 +16,20 @@ const coinsText = document.querySelector("#coins");
 const ScoreTitle = document.querySelector("#ScoreTitle");
 const bestScoreText = document.querySelector("#Bscore");
 
-let cardList = document.getElementById('cardList')
-const cards=[
-  {id:0,src:"",name: "akbari",price:100, speed: 2,jump:6},
-  {id:1,src:"",name: "salemi",price:500, speed: 3,jump:20},
-  ]
-  
-  
-const purchasedCards= []
+let cardList = document.getElementById("cardList");
+const cards = [
+  { id: 0, src: "", name: "اکبری", desc: "یک متن ازمایشی", price: 100, speed: 2, jump: 6 },
+  { id: 1, src: "", name: "سالمی", desc: "یک متن ازمایشی", price: 500, speed: 3, jump: 20 },
+  { id: 2, src: "", name: "مجاوریان", desc: "یک متن ازمایشی", price: 50, speed: 3, jump: 5 },
+];
+
+const purchasedCards = [2];
+let selectetCard = 0;
 
 document.querySelectorAll("#bestScoreTitle")[0].innerHTML =
   localStorage.getItem("bestScore") ?? 0;
 document.querySelectorAll("#bestScoreTitle")[1].innerHTML =
   localStorage.getItem("bestScore") ?? 0;
-
 
 export let gameStarted = false;
 
@@ -71,7 +70,6 @@ function startGame() {
   character.attributes.removeNamedItem("hidden");
   let tempY = DefaultnumY;
   setInterval(() => {
-
     if (!gameStarted) return;
 
     if (tempY < 0) jump = false;
@@ -117,26 +115,27 @@ function restartGame() {
 
   gameStarted = true;
   character.style.bottom = 0;
-  
-  BlockRunner.run()
-  CloudRunner.run()
-  CoinRunner.run()
+
+  BlockRunner.run();
+  CloudRunner.run();
+  CoinRunner.run();
 }
 
 function scoreHandler() {
   setInterval(() => {
     if (gameStarted) {
-    Score += speed;
-    ScoreTitle.innerHTML = Math.round(Score);
-    scoreText.innerHTML = Math.round(Score);
+      Score += speed;
+      ScoreTitle.innerHTML = Math.round(Score);
+      scoreText.innerHTML = Math.round(Score);
 
-    document.querySelectorAll("#bestScoreTitle")[0].innerHTML = BestScore;
-    document.querySelectorAll("#bestScoreTitle")[1].innerHTML = BestScore;
+      document.querySelectorAll("#bestScoreTitle")[0].innerHTML = BestScore;
+      document.querySelectorAll("#bestScoreTitle")[1].innerHTML = BestScore;
 
-    if (Score > BestScore) {
-      BestScore = Math.round(Score);
-      bestScoreText.innerHTML = Math.round(Score);
-    }}
+      if (Score > BestScore) {
+        BestScore = Math.round(Score);
+        bestScoreText.innerHTML = Math.round(Score);
+      }
+    }
   }, 100);
 
   setInterval(() => {
@@ -150,10 +149,10 @@ function StartHandler() {
   RunClouds();
   RunCoins();
   scoreHandler();
-  
-   BlockRunner.run()
-  CloudRunner.run()
-  CoinRunner.run()
+
+  BlockRunner.run();
+  CloudRunner.run();
+  CoinRunner.run();
 }
 function StopHandler() {
   gameStarted = false;
@@ -167,26 +166,25 @@ function StopHandler() {
 }
 
 function RunBlocks() {
-
   BlockRunner.action = () => {
     StopHandler();
   };
 
   let num = 500;
-  
+
   loop();
 
   function loop() {
     const timer = setTimeout(() => {
       if (gameStarted) {
         BlockRunner.createData.height = Math.random() * 50 + 10;
-        BlockRunner.createData.classes = `bg-red-500 bottom-0`
-        BlockRunner.createData.width = "30"
+        BlockRunner.createData.classes = `bg-red-500 bottom-0`;
+        BlockRunner.createData.width = "30";
         BlockRunner.create();
 
         num = Math.random() * 2000 + 1000;
       }
-        loop();
+      loop();
     }, num - speed * 100);
   }
 }
@@ -206,7 +204,7 @@ function RunClouds() {
 
         num = Math.random() * 1000;
       }
-        loop();
+      loop();
     }, num);
   }
 }
@@ -234,7 +232,7 @@ function RunCoins() {
 
         num = Math.random() * 7000;
       }
-        loop();
+      loop();
     }, num);
   }
 }
@@ -252,21 +250,67 @@ window.addEventListener("keydown", (e) => {
 });
 
 jumpBtn.addEventListener("click", () => {
-  if(!jumpC){
+  if (!jumpC) {
     jump = true;
     jumpC = true;
   }
-    
 });
 
 downBtn.addEventListener("click", () => {
-    down = true;
-  
+  down = true;
 });
-cardHandler()
-function cardHandler(){
-  cards.map(e => {
-    cardList.innerHTML += `<div> <h3>${e.name}</h3> ${e.price}</div>`
-  })
-  
+cardHandler();
+function cardHandler() {
+  cards.forEach((e) => {
+    cardList.innerHTML += `
+    <div class="bg-gray-800  text-gray-300 w-32 rounded-lg overflow-hidden m-1 p-2">
+    <img class="w-full rounded-xl" src="${e.src == '' ? 'assets/prof.png' : e.src}">
+    <h3 class='text-white p-2 font-bold'>${e.name}</h3>
+    <p>${e.desc}</p>
+    <p>قیمت: ${e.price}</p>  
+    ${e.id != selectetCard ? 
+      `<button id='buy-${e.id}' class="bg-red-500 text-white hover:bg-red-400 p-1 rounded-md m-2">${purchasedCards.some(i => e.id== i ) ? 'انتخاب' : "خرید"}</button>`
+      :
+      `<button id='buy-${e.id}' class="bg-green-500 text-white p-1 rounded-md m-2">انتخاب شده</button>`
+    }
+    </div>
+       `;
+
+  });
+  cards.forEach((e) => {
+       document.querySelector(`#buy-${e.id}`)?.addEventListener('click', ()=>{
+        buyChar(e);
+       })
+  });
+}
+let toggleShowChar = false;
+document.querySelector('#charShow').addEventListener('click', ()=>{
+  toggleChar()
+})
+function toggleChar(){
+  if(!toggleShowChar){
+    cardList.classList.remove('hidden')
+    toggleShowChar = true
+  }else{
+    cardList.classList.add('hidden')
+    toggleShowChar = false
+  }
+}
+const buyChar = (e) =>{
+  if(selectetCard == e.id) return;
+  if(purchasedCards.some(f => f == e.id)){
+    console.log("selectet");
+    document.getElementById(`buy-${e.id}`).outerHTML = `<button id='buy-${e.id}' class="bg-green-500 text-white p-1 rounded-md m-2">انتخاب شده</button>`
+    document.getElementById(`buy-${selectetCard}`).outerHTML = `<button id='buy-${e.id}' class="bg-red-500 text-white hover:bg-red-400 p-1 rounded-md m-2">انتخاب</button>`
+    selectetCard = e.id
+  }else{
+    if(Coin >= e.price){
+      Coin -= e.price;
+      purchasedCards.push(e.id)
+      document.querySelector(`#buy-${e.id}`).innerHTML = 'انتخاب'
+    }else{
+      document.querySelector(`#buy-${e.id}`).innerHTML = 'Error'
+      setTimeout(()=> document.querySelector(`#buy-${e.id}`).innerHTML = 'خرید', 2000);
+    }
+  }
 }
